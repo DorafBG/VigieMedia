@@ -1,3 +1,5 @@
+package Entite;
+
 public class Media {
     private String nom;
     private String type;
@@ -14,4 +16,23 @@ public class Media {
         this.estPayant = estPayant;
         this.estDisparu = estDisparu;
     }
+
+    @Override
+    public String toString() {
+        String result = nom + " (" + type + ")";
+
+        if (!periodicite.isEmpty()) {
+            result += " - " + periodicite;
+        }
+        if (!echelle.isEmpty()) {
+            result += " [" + echelle + "]";
+        }
+        result += estPayant ? " (Payant)" : " (Gratuit)";
+        result += estDisparu ? " - Disparu" : " - Actif";
+
+        return result;
+    }
+
+
+
 }

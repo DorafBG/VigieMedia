@@ -3,7 +3,7 @@
 
 ## Consignes :
 
-**Projet : Vigie des médias**
+**Projet : Vigie.Vigie des médias**
 
 -----
 **Contexte**
@@ -106,7 +106,7 @@ Développement (au minimum) de deux modules spécialisés
    - lance une alerte à la vigie si (au-delà d'un certain nombre de mentions) un pourcentage de mentions pour une personne / une organisation / un média dépasse un seuil, ou si une nouvelle personne / organisation acquiert des parts pour un média pour lequel elle n'en avait pas précédemment (i.e. nouveau propriétaire)
 -----
 
-**Vigie des médias**
+**Vigie.Vigie des médias**
 
 Module vigie
 

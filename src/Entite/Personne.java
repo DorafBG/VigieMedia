@@ -7,4 +7,8 @@ public class Personne {
         this.nom = nom;
     }
 
+    @Override
+    public String toString() {
+        return nom;
+    }
 }

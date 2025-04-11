@@ -8,9 +8,24 @@ public class Organisation {
         this.nom = nom;
         this.commentaire = commentaire;
     }
-
     public Organisation(String nom){
         this.nom = nom;
+        this.commentaire = "";
+    }
+
+    public String getNom() {
+        return nom;
+    }
+    public String getCommentaire() {
+        return commentaire;
+    }
+    @Override
+    public String toString() {
+        String result = nom;
+        if(!commentaire.equals("")){
+            result += " (" + commentaire + ")";
+        }
+        return result;
     }
 
 }
