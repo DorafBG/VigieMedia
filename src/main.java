@@ -1,30 +1,40 @@
-import Entite.Media;
-import Entite.Organisation;
-import Entite.Personne;
+import Entite.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static Util.Parser.*;
 
 public class main {
     public static void main(String[] args) {
-        /*
-        List<Organisation> ogs = readOrganisations();
-        for (Organisation org : ogs) {
-            System.out.println(org);
-        }*/
+        Map<String, ? extends  Organisation> ogs = readOrganisations();
+        Map<String, ? extends Entite> personnes = readPersonnes();
+        Map<String, ? extends Entite> medias = readMedias();
 
-        /*
-        List<Media> medias = readMedias();
-        for (Media media : medias){
-            System.out.println(media);
-        }*/
+        List<PartPropriete> relationsOrgMedia = lireRelations("sources/organisation-media.tsv", ogs, medias);
+        List<PartPropriete> relationsOrgOrg = lireRelations("sources/organisation-organisation.tsv", ogs, ogs);
 
-        /*List<Personne> personnes = readPersonnes();
-        for (Personne p : personnes){
-            System.out.println(p);
-        }*/
+        // print
+        //System.out.println("Relations Organisation-Media :");
+        //for (PartPropriete relation : relationsOrgMedia) {
+        //    System.out.println(relation);
+        //}
+        System.out.println("\nRelations Organisation-Organisation :");
+        for (PartPropriete relation : relationsOrgOrg) {
+            System.out.println(relation);
+        }
+
+        // relations de l'organisation Bayard :
+        System.out.println("\nRelations de l'organisation Bayard :");
+        for (Organisation og : ogs.values()) {
+            if (og.getNom().equals("Bayard")) {
+                List<PartPropriete> possessions = og.getPossessions();
+                for(PartPropriete possession : possessions) {
+                    System.out.println(possession);
+                }
+            }
+        }
 
     }
 }

@@ -1,7 +1,6 @@
 package Entite;
 
-public class Media {
-    private String nom;
+public class Media extends Entite {
     private String type;
     private String periodicite;
     private String echelle;
@@ -9,7 +8,7 @@ public class Media {
     private boolean estDisparu;
 
     public Media(String nom, String type, String periodicite, String echelle, boolean estPayant, boolean estDisparu){
-        this.nom = nom;
+        super(nom);
         this.type = type;
         this.periodicite = periodicite;
         this.echelle = echelle;

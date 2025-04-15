@@ -1,8 +1,6 @@
 package Util;
 
-import Entite.Organisation;
-import Entite.Media;
-import Entite.Personne;
+import Entite.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,9 +12,9 @@ import java.util.Map;
 
 public class Parser {
 
-    public static List<Organisation> readOrganisations() {
+    public static Map<String, Organisation> readOrganisations() {
         String path = "sources/organisations.tsv";
-        List<Organisation> organisations = new ArrayList<>();
+        Map<String, Organisation> organisations = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             br.readLine(); // on saute la premiere ligne
@@ -27,10 +25,10 @@ public class Parser {
                 if (parts.length >= 2) {
                     String nom = parts[0];
                     String commentaire = parts[1];
-                    if(commentaire == null || commentaire.equals("")){
-                        organisations.add(new Organisation(nom));
+                    if(commentaire == null || commentaire.isEmpty()){
+                        organisations.put(nom, new Organisation(nom));
                     } else {
-                        organisations.add(new Organisation(nom, commentaire));
+                        organisations.put(nom, new Organisation(nom, commentaire));
                     }
                 }
             }
@@ -40,9 +38,9 @@ public class Parser {
         return organisations;
     }
 
-    public static List<Media> readMedias() {
+    public static Map<String, Media> readMedias() {
         String path = "sources/medias.tsv";
-        List<Media> medias = new ArrayList<>();
+        Map<String, Media> medias = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             br.readLine(); // on saute la premiere ligne
@@ -73,7 +71,7 @@ public class Parser {
                     if(disparu.equals("checked")){
                         estDisparu = true;
                     }
-                    medias.add(new Media(nom,type,periodicite,echelle,estPayant,estDisparu));
+                    medias.put(nom, new Media(nom,type,periodicite,echelle,estPayant,estDisparu));
                 }
             }
         } catch (IOException e) {
@@ -82,9 +80,9 @@ public class Parser {
         return medias;
     }
 
-    public static List<Personne> readPersonnes() {
+    public static Map<String, Personne> readPersonnes() {
         String path = "sources/personnes.tsv";
-        List<Personne> personnes = new ArrayList<>();
+        Map<String, Personne> personnes = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             br.readLine(); // on saute la premiere ligne
@@ -94,7 +92,7 @@ public class Parser {
                 String[] parts = line.split("\t", -1);
                 if (parts.length >= 1) {
                     String nom = parts[0];
-                    personnes.add(new Personne(nom));
+                    personnes.put(nom, new Personne(nom));
                 }
             }
         } catch (IOException e) {
@@ -102,6 +100,59 @@ public class Parser {
         }
         return personnes;
     }
+
+    public static List<PartPropriete> lireRelations(String path,
+                                                    Map<String, ? extends Entite> originesConnues,
+                                                    Map<String, ? extends Entite> ciblesConnues) {
+        List<PartPropriete> relations = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            br.readLine();
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\t", -1);
+
+                if (parts.length >= 5) {
+                    String origineNom = parts[1];
+                    String qualificatif = parts[2];
+                    String pourcentageString = parts[3].replace("%", "").replace(",", ".");
+                    String cibleNom = parts[4];
+
+                    Entite origine = originesConnues.get(origineNom);
+                    Entite cible = ciblesConnues.get(cibleNom);
+
+                    if (origine != null && cible != null) {
+                        double pourcentage = 0;
+                        if(qualificatif.equals("contrôle")){
+                            pourcentage = 100;
+                        } else if(qualificatif.equals("inférieur à")){
+                            pourcentage = 49;
+                        } else {
+                            pourcentage = Double.parseDouble(pourcentageString);
+                        }
+
+                        PartPropriete part = new PartPropriete(origine, cible, pourcentage);
+                        relations.add(part);
+
+                        // On ajoute l'existance de la relation a l'origine
+                        if (origine instanceof Organisation org) {
+                            org.ajouterPart(part);
+                        } else if (origine instanceof Personne pers) {
+                            pers.ajouterPart(part);
+                        }
+                    } else {
+                        System.out.println("Origine ou cible introuvable : " + origineNom + " -> " + cibleNom);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Erreur de lecture du fichier " + path + " : " + e.getMessage());
+        }
+
+        return relations;
+    }
+
 
 
 }
