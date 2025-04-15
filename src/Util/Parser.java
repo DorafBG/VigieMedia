@@ -12,6 +12,7 @@ import java.util.Map;
 
 public class Parser {
 
+    // Permet de parser les organisations
     public static Map<String, Organisation> readOrganisations() {
         String path = "sources/organisations.tsv";
         Map<String, Organisation> organisations = new HashMap<>();
@@ -38,6 +39,7 @@ public class Parser {
         return organisations;
     }
 
+    // Permet de parser les medias
     public static Map<String, Media> readMedias() {
         String path = "sources/medias.tsv";
         Map<String, Media> medias = new HashMap<>();
@@ -80,6 +82,7 @@ public class Parser {
         return medias;
     }
 
+    // Permet de parser les personnes
     public static Map<String, Personne> readPersonnes() {
         String path = "sources/personnes.tsv";
         Map<String, Personne> personnes = new HashMap<>();
@@ -101,9 +104,11 @@ public class Parser {
         return personnes;
     }
 
-    public static List<PartPropriete> lireRelations(String path,
-                                                    Map<String, ? extends Entite> originesConnues,
-                                                    Map<String, ? extends Entite> ciblesConnues) {
+    // Permet de lire les relations entre les entites et de mettre a jour les possessions (attributs)
+    // de chaque entite origine (organisation ou personne)
+    public static List<PartPropriete> updateAndReadRelations(String path,
+                                                             Map<String, ? extends Entite> originesConnues,
+                                                             Map<String, ? extends Entite> ciblesConnues) {
         List<PartPropriete> relations = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -116,7 +121,7 @@ public class Parser {
                 if (parts.length >= 5) {
                     String origineNom = parts[1];
                     String qualificatif = parts[2];
-                    String pourcentageString = parts[3].replace("%", "").replace(",", ".");
+                    String pourcentageString = parts[3].replace("%", "");
                     String cibleNom = parts[4];
 
                     Entite origine = originesConnues.get(origineNom);
@@ -128,6 +133,8 @@ public class Parser {
                             pourcentage = 100;
                         } else if(qualificatif.equals("inférieur à")){
                             pourcentage = 49;
+                        } else if(qualificatif.equals("participe")){
+                            pourcentage = 5;
                         } else {
                             pourcentage = Double.parseDouble(pourcentageString);
                         }
@@ -135,7 +142,7 @@ public class Parser {
                         PartPropriete part = new PartPropriete(origine, cible, pourcentage);
                         relations.add(part);
 
-                        // On ajoute l'existance de la relation a l'origine
+                        // On met a jour les "possessions" de l'origine
                         if (origine instanceof Organisation org) {
                             org.ajouterPart(part);
                         } else if (origine instanceof Personne pers) {

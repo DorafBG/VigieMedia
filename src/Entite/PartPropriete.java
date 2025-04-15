@@ -43,6 +43,6 @@ public class PartPropriete {
 
     @Override
     public String toString() {
-        return proprietaire.getNom() + " détient " + pourcentage + "% de " + cible.getNom();
+        return proprietaire.getNom() + " détient " + pourcentage + "% de " + cible.toString();
     }
 }

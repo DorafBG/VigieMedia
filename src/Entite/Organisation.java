@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Organisation extends Entite{
-    protected List<PartPropriete> possessions = new ArrayList<>();
+    protected List<PartPropriete> possessions = new ArrayList<>(); // toutes les proprietes avec le pourcentage associe
     private String commentaire;
 
     public Organisation(String nom, String commentaire){

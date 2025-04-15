@@ -1,6 +1,5 @@
 import Entite.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,14 +7,15 @@ import static Util.Parser.*;
 
 public class main {
     public static void main(String[] args) {
-        Map<String, ? extends  Organisation> ogs = readOrganisations();
-        Map<String, ? extends Entite> personnes = readPersonnes();
-        Map<String, ? extends Entite> medias = readMedias();
+        Map<String, Organisation> ogs = readOrganisations();
+        Map<String, Personne> personnes = readPersonnes();
+        Map<String, Media> medias = readMedias();
 
-        List<PartPropriete> relationsOrgMedia = lireRelations("sources/organisation-media.tsv", ogs, medias);
-        List<PartPropriete> relationsOrgOrg = lireRelations("sources/organisation-organisation.tsv", ogs, ogs);
+        List<PartPropriete> relationsOrgMedia = updateAndReadRelations("sources/organisation-media.tsv", ogs, medias);
+        List<PartPropriete> relationsOrgOrg = updateAndReadRelations("sources/organisation-organisation.tsv", ogs, ogs);
+        List<PartPropriete> relationsPersMedia = updateAndReadRelations("sources/personne-media.tsv", personnes, medias);
+        List<PartPropriete> relationsPersOrg = updateAndReadRelations("sources/personne-organisation.tsv", personnes, ogs);
 
-        // print
         //System.out.println("Relations Organisation-Media :");
         //for (PartPropriete relation : relationsOrgMedia) {
         //    System.out.println(relation);
@@ -25,13 +25,17 @@ public class main {
             System.out.println(relation);
         }
 
-        // relations de l'organisation Bayard :
-        System.out.println("\nRelations de l'organisation Bayard :");
-        for (Organisation og : ogs.values()) {
-            if (og.getNom().equals("Bayard")) {
-                List<PartPropriete> possessions = og.getPossessions();
+        // relations de la personne Vincent Bolloré et toutes ses possessions
+        System.out.println("\nRelations de la personne :");
+        for (Personne p : personnes.values()) {
+            if (p.getNom().equals("Vincent Bolloré")) {
+                List<PartPropriete> possessions = p.getPossessions();
                 for(PartPropriete possession : possessions) {
-                    System.out.println(possession);
+                    System.out.println("Possessions de " + possession.getCible() + " :");
+                    Organisation bollore = (Organisation) possession.getCible();
+                    for(PartPropriete po2 : bollore.getPossessions()){
+                        System.out.println(po2);
+                    }
                 }
             }
         }
