@@ -1,12 +1,21 @@
 package Vigie;
 
+/**
+ * Classe de la Vigie qui va pouvoir suivre des modules pour surveiller les mentions
+ * ans la presse de personnes / groupes qui peuvent posséder certains titres de presse.
+ * Cette classe est un Singleton, elle ne pourra donc pas être instanciée plusieurs fois.
+ */
 public class Vigie {
     private static Vigie instance;
 
     private Vigie() {
     }
 
-    // Patron de conception Singleton pour s'assurer qu'il n'y a qu'un seul Vigie qui existe
+    /**
+     * Permet de récupérer l'instance de la Vigie. Si elle n'existe pas, elle sera créée
+     * (patron de conception Singleton)
+     * @return
+     */
     public static Vigie getInstance() {
         if (instance == null) {
             instance = new Vigie();

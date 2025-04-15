@@ -1,11 +1,11 @@
 package Entite;
 
+/**
+ * Classe représentant une part de propriété d'une entité (personne ou organisation)
+ * sur une autre entité (média ou organisation).
+ * Elle contient des informations sur le propriétaire, la cible et le pourcentage de propriété.
+ */
 public class PartPropriete {
-    // sert pour les classes qui lient des entites entre elles :
-    // organisation-media.tsv
-    // organisation-organisation.tsv
-    // personne-media.tsv
-    // personne-organisation.tsv
     private Entite proprietaire; //personne ou organisation
     private Entite cible; //media ou organisation
     private double pourcentage;

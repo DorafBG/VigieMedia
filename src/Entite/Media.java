@@ -1,5 +1,8 @@
 package Entite;
 
+/**
+ * Classe représentant un média.
+ */
 public class Media extends Entite {
     private String type;
     private String periodicite;
@@ -14,6 +17,32 @@ public class Media extends Entite {
         this.echelle = echelle;
         this.estPayant = estPayant;
         this.estDisparu = estDisparu;
+    }
+
+    // getters et setters
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    public String getPeriodicite() {
+        return periodicite;
+    }
+    public void setPeriodicite(String periodicite) {
+        this.periodicite = periodicite;
+    }
+    public String getEchelle() {
+        return echelle;
+    }
+    public void setEchelle(String echelle) {
+        this.echelle = echelle;
+    }
+    public boolean isEstPayant() {
+        return estPayant;
+    }
+    public void setEstPayant(boolean estPayant) {
+        this.estPayant = estPayant;
     }
 
     @Override

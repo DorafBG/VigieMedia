@@ -1,4 +1,4 @@
-package Util;
+package Outils;
 
 import Entite.*;
 
@@ -10,9 +10,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Classe utilitaire permettant de faire la relation entre l'application et les fichiers sources.
+ */
 public class Parser {
 
-    // Permet de parser les organisations
+    /**
+     * Permet de parser les organisations à partir des fichiers sources
+     * @return une Map avec toutes les organisations en valeurs et leurs noms en clé (utile pour la recherche)
+     */
     public static Map<String, Organisation> readOrganisations() {
         String path = "sources/organisations.tsv";
         Map<String, Organisation> organisations = new HashMap<>();
@@ -39,7 +45,10 @@ public class Parser {
         return organisations;
     }
 
-    // Permet de parser les medias
+    /**
+     * Permet de parser les médias à partir des fichiers sources
+     * @return une Map avec tous les médias en valeurs et leurs noms en clé (utile pour la recherche)
+     */
     public static Map<String, Media> readMedias() {
         String path = "sources/medias.tsv";
         Map<String, Media> medias = new HashMap<>();
@@ -82,7 +91,10 @@ public class Parser {
         return medias;
     }
 
-    // Permet de parser les personnes
+    /**
+     * Permet de parser les personnes à partir des fichiers sources
+     * @return une Map avec toutes les personnes en valeurs et leurs noms en clé (utile pour la recherche)
+     */
     public static Map<String, Personne> readPersonnes() {
         String path = "sources/personnes.tsv";
         Map<String, Personne> personnes = new HashMap<>();
@@ -104,8 +116,14 @@ public class Parser {
         return personnes;
     }
 
-    // Permet de lire les relations entre les entites et de mettre a jour les possessions (attributs)
-    // de chaque entite origine (organisation ou personne)
+    /**
+     * Permet de lire les relations entre les entités et de mettre à jour les possessions (attributs)
+     * de chaque entité origine (Organisation ou Personne)
+     * @param path chemin du fichier de relation (en format .tsv)
+     * @param originesConnues la Map de toutes les Entite (Organisation ou Personne) origine qui existent
+     * @param ciblesConnues la Map de toutes les Entite (Organisation ou Media) cibles qui existent
+     * @return
+     */
     public static List<PartPropriete> updateAndReadRelations(String path,
                                                              Map<String, ? extends Entite> originesConnues,
                                                              Map<String, ? extends Entite> ciblesConnues) {

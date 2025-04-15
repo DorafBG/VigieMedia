@@ -3,6 +3,9 @@ package Entite;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe représentant une organisation qui possède des parts de propriété.
+ */
 public class Organisation extends Entite{
     protected List<PartPropriete> possessions = new ArrayList<>(); // toutes les proprietes avec le pourcentage associe
     private String commentaire;
@@ -23,8 +26,20 @@ public class Organisation extends Entite{
         return commentaire;
     }
 
+    /**
+     * Fonction pour ajouter une part de propriété à l'organisation
+     * @param part la part de propriété à ajouter
+     */
     public void ajouterPart(PartPropriete part) {
         possessions.add(part);
+    }
+
+    /**
+     * Fonction pour ajouter une part de propriété à la personne
+     * @param part la part de propriété à ajouter
+     */
+    public void supprimerPart(PartPropriete part) {
+        possessions.remove(part);
     }
 
     public List<PartPropriete> getPossessions() {
