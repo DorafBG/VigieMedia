@@ -50,7 +50,8 @@ public class ModuleSuiviMedia implements IObservateur {
      */
     private final Vigie vigie;
 
-    public ModuleSuiviMedia(Media mediaASuivre, int seuilNombreMentions, double seuilPourcentageMentions) {
+    public ModuleSuiviMedia(Media mediaASuivre, int seuilNombreMentions, double seuilPourcentageMentions,
+                            Map<String, Personne> personnes, Map<String, Organisation> organisations) {
         this.mediaASuivre = mediaASuivre;
         this.compteurMentionsParEntite = new HashMap<>();
         this.historiqueRachats = new ArrayList<>();
@@ -59,13 +60,32 @@ public class ModuleSuiviMedia implements IObservateur {
         this.seuilPourcentageMentions = seuilPourcentageMentions;
         this.vigie = Vigie.getInstance();
 
-        // Initialiser la liste des propriétaires actuels
-        initialiserProprietaires();
+        initialiserProprietaires(personnes, organisations);
     }
 
-    private void initialiserProprietaires() {
-        // Cette méthode devrait parcourir toutes les entités et ajouter
-        // celles qui possèdent une part du média suivi
+    /**
+     * Méthode pour initialiser la liste des propriétaires du média suivi
+     * @param personnes la liste sous forme de paire <nom, Personne> de toutes les personnes existantes
+     * @param organisations la liste sous forme de paire <nom, Organisation> de toutes les personnes existantes
+     */
+    private void initialiserProprietaires(Map<String, Personne> personnes, Map<String, Organisation> organisations) {
+        // On parcourt toutes les personnes
+        for (Personne p : personnes.values()) {
+            for (PartPropriete part : p.getPossessions()) {
+                if (part.getCible().equals(mediaASuivre)) { // cette personne possède une part du média suivi
+                    proprietairesActuels.add(p);
+                }
+            }
+        }
+
+        // Puis on parcourt toutes les organisations
+        for (Organisation org : organisations.values()) {
+            for (PartPropriete part : org.getPossessions()) {
+                if (part.getCible().equals(mediaASuivre)) { // cette organisation possède une part du média suivi
+                    proprietairesActuels.add(org);
+                }
+            }
+        }
     }
 
     /**

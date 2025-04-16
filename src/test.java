@@ -75,6 +75,10 @@ public class test {
             System.out.println(PP);
         }
 
+        // On peut aussi essayer
+        // Daniel Křetínský a 5% de TF1
+        // On parle de lui dans LCI -> lance une alerte (car TF1 a 100% de LCI)
+
 
     }
 }

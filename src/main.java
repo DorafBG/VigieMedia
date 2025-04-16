@@ -25,14 +25,15 @@ public class main {
         GestionnaireEvenements gestionnaire = GestionnaireEvenements.getInstance();
 
         // On cree 2 modules de suivi
-        Personne bollore = personnes.get("Vincent Bolloré");
-        ModuleSuiviPersonne moduleBollore = new ModuleSuiviPersonne(bollore);
+        Personne daniel = personnes.get("Xavier Niel");
+        ModuleSuiviPersonne moduledaniel = new ModuleSuiviPersonne(daniel);
 
-        Media leMondeMedia = medias.get("CNews");
-        ModuleSuiviMedia moduleLeMondeMedia = new ModuleSuiviMedia(leMondeMedia, 5, 25.0);
+        Media leMondeMedia = medias.get("Arte");
+        ModuleSuiviMedia moduleLeMondeMedia = new ModuleSuiviMedia(leMondeMedia, 5, 25.0,
+                personnes, organisations);
 
         // le gestionnaire s'abonne aux modules
-        gestionnaire.abonner(moduleBollore);
+        gestionnaire.abonner(moduledaniel);
         gestionnaire.abonner(moduleLeMondeMedia);
 
         // Menu utilisateur
@@ -63,7 +64,7 @@ public class main {
                     simulerRachatPart(scanner, gestionnaire, personnes, organisations, medias);
                     break;
                 case 4:
-                    afficherStatistiques(moduleBollore, moduleLeMondeMedia);
+                    afficherStatistiques(moduledaniel, moduleLeMondeMedia);
                     break;
                 case 5:
                     afficherAlertes();
@@ -513,7 +514,19 @@ public class main {
             System.out.println("Aucun propriétaire enregistré.");
         } else {
             for (Entite proprietaire : proprietaires) {
-                System.out.println("- " + proprietaire.getNom());
+                if(proprietaire instanceof Personne p){
+                    for(PartPropriete part : p.getPossessions()){
+                        if(part.getCible().equals(moduleMedia.getMediaASuivre())){
+                            System.out.println("- " + p.getNom() + " (" + part.getPourcentage() + "%)");
+                        }
+                    }
+                } else {
+                    for(PartPropriete part : ((Organisation) proprietaire).getPossessions()){
+                        if(part.getCible().equals(moduleMedia.getMediaASuivre())){
+                            System.out.println("- " + proprietaire.getNom() + " (" + part.getPourcentage() + "%)");
+                        }
+                    }
+                }
             }
         }
     }

@@ -45,21 +45,19 @@ public class ModuleSuiviPersonne implements IObservateur {
             // on ne traite pas les rachats de parts
             return;
         }
+        // Ce sera donc forcement une publication ou une diffusion
         Evenement event = (Evenement) evenement;
+        Media media = event.getMedia();
+
+        // Si la publication/diffusion mentionne la personne, on l'enregistre
         if (concernePersonne(event, personneASuivre)) {
             historiqueEvenements.add(event);
+            compteurMentionsParMedia.put(media, compteurMentionsParMedia.getOrDefault(media, 0) + 1);
+        }
 
-            // Si c'est une publication ou diffusion
-            if (event instanceof Publication || event instanceof Diffusion) {
-                Media media = event.getMedia();
-                compteurMentionsParMedia.put(media,
-                        compteurMentionsParMedia.getOrDefault(media, 0) + 1);
-
-                // On verifie si le media qui mentionne la personne est détenu par elle
-                if (estDetenuParPersonne(media, personneASuivre)) {
-                    genererAlerteMediaDetenu(event);
-                }
-            }
+        // Et on verifie si c'est un media détenu par la personne
+        if (estDetenuParPersonne(media, personneASuivre)) {
+            genererAlerteMediaDetenu(event);
         }
     }
 
@@ -74,7 +72,6 @@ public class ModuleSuiviPersonne implements IObservateur {
      * @return true si le média est détenu par la personne ou par une de ses organisations, false sinon
      */
     private boolean estDetenuParPersonne(Media media, Personne personne) {
-        System.out.println("Vérification de la détention du média " + media.getNom() + " par " + personne.getNom());
         // on verifie directement si la personne possede des parts du media
         for (PartPropriete part : personne.getPossessions()) {
             if (part.getCible().equals(media)) {
@@ -95,18 +92,17 @@ public class ModuleSuiviPersonne implements IObservateur {
     }
 
     /**
-     * Génère une alerte si la personne est mentionnée dans un média qu'elle détient
+     * Génère une alerte si une publication/diffusion est effectuée par un média détenu par la personne suivie
      * @param evenement
      */
     private void genererAlerteMediaDetenu(Evenement evenement) {
-        String message = "La personne " + personneASuivre.getNom() +
-                " est mentionnée dans " + evenement.getTitre() +
-                " publié par un média qu'elle détient : " +
-                evenement.getMedia().getNom();
+        String message = "Le média " + evenement.getMedia().getNom() +
+                " qui est détenu par " + personneASuivre.getNom() +
+                " a publié une publication/diffusion : ''" + evenement.getTitre() + "''";
 
         Alerte alerte = new Alerte(
                 message,
-                "Conflit d'intérêt",
+                "Nouvelle publication/diffusion d'un média détenu",
                 evenement,
                 "Module Suivi Personne: " + personneASuivre.getNom()
         );

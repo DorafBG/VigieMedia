@@ -3,6 +3,8 @@ import Evenement.Evenement;
 import Evenement.IEvenement;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Alerte {
     private final String message;
@@ -41,7 +43,9 @@ public class Alerte {
 
     @Override
     public String toString() {
-        return "Date: " + date + "\n" +
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy 'à' HH'h'mm", Locale.FRENCH);
+        String dateFormatee = date.format(formatter);
+        return "Date: " + dateFormatee + "\n" +
                 "Type: " + type + "\n" +
                 "Source: " + sourceModule + "\n" +
                 "Message: " + message;
