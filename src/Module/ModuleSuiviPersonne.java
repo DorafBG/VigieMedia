@@ -74,6 +74,7 @@ public class ModuleSuiviPersonne implements IObservateur {
      * @return true si le média est détenu par la personne ou par une de ses organisations, false sinon
      */
     private boolean estDetenuParPersonne(Media media, Personne personne) {
+        System.out.println("Vérification de la détention du média " + media.getNom() + " par " + personne.getNom());
         // on verifie directement si la personne possede des parts du media
         for (PartPropriete part : personne.getPossessions()) {
             if (part.getCible().equals(media)) {
