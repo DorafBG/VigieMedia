@@ -21,7 +21,7 @@ public interface IEvenement {
 
     /**
      * Permet d'obtenir toutes les informations de l'événement sous forme textuel
-     * @return la forme textuel de l'événement
+     * @return la forme textuelle de l'événement
      */
     String toString();
 }

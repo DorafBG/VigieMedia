@@ -67,7 +67,7 @@ public class GestionnaireRachat {
      *
      * @param proprietaire L'entité propriétaire (Organisation ou Personne)
      * @param cible        L'entité cible (Media ou Organisation)
-     * @return La part de propriété en question
+     * @return La part de propriété en question (null si le proprietaire n'est pas une Organisation ou une Personne)
      */
     private static PartPropriete trouverPartPropriete(Entite proprietaire, Entite cible) {
         List<PartPropriete> possessions;
@@ -80,6 +80,7 @@ public class GestionnaireRachat {
             return null;
         }
 
+        // on recherche parmi les possessions du proprietaire, si la relation existe
         for (PartPropriete part : possessions) {
             if (part.getCible().equals(cible)) {
                 return part;

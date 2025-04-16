@@ -6,11 +6,38 @@ package Entite;
  * Elle contient des informations sur le propriétaire, la cible et le pourcentage de propriété.
  */
 public class PartPropriete {
-    private Entite proprietaire; //personne ou organisation
-    private Entite cible; //media ou organisation
+    /**
+     * Propriétaire de la part de propriété (peut être une personne ou une organisation)
+     */
+    private Entite proprietaire;
+
+    /**
+     * Cible de la part de propriété (peut être un média ou une organisation)
+     */
+    private Entite cible;
+
+    /**
+     * Pourcentage de propriété (entre 0 et 100)
+     */
     private double pourcentage;
 
+    /**
+     * Constructeur de la classe PartPropriete.
+     * (vérifie si le propriétaire est une personne ou une organisation,
+     * si la cible est un média ou une organisation,
+     * et si le pourcentage est compris entre 0 et 100)
+     * @param proprietaire Une Entite pouvant être une personne ou une organisation
+     * @param cible Une Entite pouvant être un média ou une organisation
+     * @param pourcentage Le pourcentage de propriété (entre 0 et 100)
+     */
     public PartPropriete(Entite proprietaire, Entite cible, double pourcentage) {
+        if(proprietaire instanceof Media){
+            throw new IllegalArgumentException("Le propriétaire doit être une personne ou une organisation !");
+        } else if(cible instanceof Personne){
+            throw new IllegalArgumentException("Une entité ne peut pas être propriétaire d'une personne !");
+        } else if(pourcentage < 0 || pourcentage > 100){
+            throw new IllegalArgumentException("Le pourcentage doit être compris entre 0 et 10 !");
+        }
         this.proprietaire = proprietaire;
         this.cible = cible;
         this.pourcentage = pourcentage;

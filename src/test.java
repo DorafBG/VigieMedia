@@ -43,12 +43,15 @@ public class test {
         }
 
         System.out.println("Test d'une Publication :");
-        Publication pub = new Publication(medias.values().iterator().next(), "Journal", "Quotidien", TypeContenu.INTERVIEW, "CacaX");
+        Publication pub = new Publication(medias.values().iterator().next(), "Journal", "Quotidien", TypeContenu.INTERVIEW, "Thomas Pequet");
         System.out.println(pub);
+
+        System.out.println("Test d'une Diffusion :");
+        Diffusion dif = new Diffusion(medias.get("CNews"), "Mario Kart", "Le nouveau Mario Kart", TypeContenu.REPORTAGE, 90.0, "Julien Choiu");
+        System.out.println(dif);
 
         System.out.println("\n--- TEST D'UN RACHAT ---");
 
-        // Exemples de noms connus dans les données, à adapter si besoin
         Organisation acheteur = ogs.get("Vivendi");
         for(PartPropriete PP : acheteur.getPossessions()){
             System.out.println(PP);

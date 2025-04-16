@@ -3,12 +3,35 @@ package Evenement;
 import Entite.*;
 import java.time.LocalDateTime;
 
+/**
+ * Classe représentant un événement de rachat de parts
+ * (GestionnaireRachat verifiera si cet événement est valide)
+ */
 public class RachatPart implements IEvenement {
     private LocalDateTime date;
-    private Entite acheteur; //personne ou organisation qui achete la part
-    private Entite vendeur; // personne ou organisation qui vend la part
-    private Entite cible;    // media ou organisation dont les parts sont vendues
-    private double pourcentage; // pourcentage de la part
+    /**
+     * Personne ou Organisation qui achete la part
+     */
+    private Entite acheteur;
+
+    /**
+     * Personne ou Organisation qui vend la part
+     */
+    private Entite vendeur;
+
+    /**
+     * Media ou Organisation dont les parts sont vendues
+     */
+    private Entite cible;
+
+    /**
+     * Pourcentage de la part
+     */
+    private double pourcentage;
+
+    /**
+     * Description de l'événement
+     */
     private String description;
 
     public RachatPart(Entite acheteur, Entite vendeur, Entite cible, double pourcentage) {
@@ -48,7 +71,11 @@ public class RachatPart implements IEvenement {
 
     @Override
     public String toString() {
-        return "Rachat de parts - " + date.toString() + "\n" +
+        return "Rachat de parts ["
+                + date.getDayOfMonth() + " "
+                + date.getMonth().getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.FRENCH) + " "
+                + date.getYear()
+                + "] : " +
                 acheteur.getNom() + " rachète " + pourcentage + "% de " + cible.getNom() + " à " + vendeur.getNom();
     }
 }

@@ -84,24 +84,20 @@ public abstract class Evenement implements IEvenement {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.getClass().getSimpleName())
-                .append(" - ")
-                .append(titre)
-                .append(" (")
-                .append(date)
-                .append(") dans ")
-                .append(media.getNom())
-                .append("\nMentionne: ");
+        String result = this.getClass().getSimpleName()
+                + " - " + titre
+                + " (" + date + ") dans "
+                + media.getNom()
+                + "\nMentionne: ";
 
-        for (Entite entite : entitesMentionnees) {
-            sb.append(entite.getNom()).append(", ");
+        for (int i = 0; i < entitesMentionnees.size(); i++) {
+            result += entitesMentionnees.get(i).getNom();
+            if (i < entitesMentionnees.size() - 1) {
+                result += ", ";
+            }
         }
 
-        if (!entitesMentionnees.isEmpty()) {
-            sb.delete(sb.length() - 2, sb.length());
-        }
-
-        return sb.toString();
+        return result;
     }
+
 }
