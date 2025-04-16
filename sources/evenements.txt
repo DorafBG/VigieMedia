@@ -1,0 +1,40 @@
+# Format: TYPE;MEDIA;TITRE;DESCRIPTION;TYPE_CONTENU;AUTEUR/ANIMATEUR;[DUREE];ENTITES_MENTIONNEES
+# TYPE: "PUBLICATION" ou "DIFFUSION"
+# MEDIA: Nom du média
+# TITRE: Titre de l'événement
+# DESCRIPTION: Description ou source
+# TYPE_CONTENU: Un des types définis dans TypeContenu (ARTICLE, REPORTAGE, INTERVIEW)
+# AUTEUR/ANIMATEUR: Nom de l'auteur ou animateur
+# DUREE: Uniquement pour DIFFUSION, durée en minutes
+# ENTITES_MENTIONNEES: TYPE:NOM|TYPE:NOM|... (TYPE peut être "PERSONNE", "ORGANISATION" ou "MEDIA")
+
+# Tous les ARTICLES
+PUBLICATION;Le Monde;Crise économique: l'impact sur les grands groupes;Analyse approfondie des conséquences économiques;ARTICLE;Marie Laurent;PERSONNE:Bernard Arnault|ORGANISATION:LVMH
+PUBLICATION;Les Échos;Télécommunications et innovations;Les avancées technologiques en France;ARTICLE;Thomas Reynaud;PERSONNE:Xavier Niel|ORGANISATION:NJJ
+PUBLICATION;Libération;Médias: concentration et indépendance;État des lieux du paysage médiatique français;ARTICLE;Sophie Durand;PERSONNE:Vincent Bolloré|ORGANISATION:Vivendi|MEDIA:Canal +
+PUBLICATION;Le Figaro;Les grands défis de l'industrie du luxe;Perspectives et stratégies;ARTICLE;Philippe Martin;PERSONNE:Bernard Arnault|ORGANISATION:LVMH
+PUBLICATION;Challenges;Classement des fortunes françaises;Les mouvements dans le top 10;ARTICLE;Thierry Fabre;PERSONNE:Bernard Arnault|PERSONNE:François Pinault|PERSONNE:Rodolphe Saadé
+PUBLICATION;Capital;L'empire médiatique de Bolloré;Analyse des acquisitions récentes;ARTICLE;Julie Morel;PERSONNE:Vincent Bolloré|ORGANISATION:Vivendi
+PUBLICATION;20 Minutes;Les nouveaux investissements dans la tech;Focus sur les startups françaises;ARTICLE;Marc Duval;PERSONNE:Xavier Niel|ORGANISATION:NJJ
+PUBLICATION;HuffPost;Évolution du marché du luxe en 2025;Tendances et perspectives;ARTICLE;Sarah Mercier;PERSONNE:Bernard Arnault|ORGANISATION:LVMH
+PUBLICATION;L’Express;Transport maritime: enjeux économiques;Analyse du secteur en pleine mutation;ARTICLE;Pierre Garin;PERSONNE:Rodolphe Saadé|ORGANISATION:CMA CGM
+
+# Tous les REPORTAGES
+DIFFUSION;France 2;Médias sous influence;Enquête sur la concentration des médias;REPORTAGE;Jean-Michel Carré;45.0;PERSONNE:Vincent Bolloré|PERSONNE:Bernard Arnault|ORGANISATION:Groupe Canal+
+DIFFUSION;Arte;La face cachée du luxe;Investigation sur l'industrie du luxe;REPORTAGE;Marie Deschamps;90.0;PERSONNE:Bernard Arnault|ORGANISATION:LVMH
+DIFFUSION;France 3;L'empire des télécoms;Les coulisses des grands groupes;REPORTAGE;Philippe Randé;60.0;PERSONNE:Xavier Niel|ORGANISATION:NJJ
+DIFFUSION;TF1;Transport maritime et économie mondiale;Impact des crises récentes;REPORTAGE;Caroline Roux;25.0;PERSONNE:Rodolphe Saadé|ORGANISATION:CMA CGM
+DIFFUSION;France Inter;Dans les coulisses du pouvoir médiatique;Reportage exclusif;REPORTAGE;Mathieu Vidard;30.0;PERSONNE:Vincent Bolloré|ORGANISATION:Vivendi
+DIFFUSION;M6;Tech et société: l'influence des géants;Enquête sur le numérique;REPORTAGE;Bernard de la Villardière;70.0;PERSONNE:Xavier Niel|ORGANISATION:NJJ
+
+# Toutes les INTERVIEWS
+PUBLICATION;Le Monde;Face à face avec Bernard Arnault;Entretien exclusif sur l'avenir du luxe;INTERVIEW;Raphaëlle Bacqué;PERSONNE:Bernard Arnault|ORGANISATION:LVMH
+PUBLICATION;Les Échos;Xavier Niel se confie;Vision et stratégie pour l'avenir numérique;INTERVIEW;David Barroux;PERSONNE:Xavier Niel|ORGANISATION:NJJ
+DIFFUSION;France Inter;Grand entretien économique;Perspectives économiques post-crise;INTERVIEW;Léa Salamé;45.0;PERSONNE:Patrick Drahi|ORGANISATION:Altice
+DIFFUSION;BFM TV;Face à Face;L'avenir des médias traditionnels;INTERVIEW;Apolline de Malherbe;30.0;PERSONNE:Claude Perdriel|MEDIA:Le Monde|MEDIA:Libération
+DIFFUSION;TF1;Journal de 20h: Entretien exclusif;Discussion sur l'économie maritime;INTERVIEW;Anne-Claire Coudray;15.0;PERSONNE:Rodolphe Saadé|ORGANISATION:CMA CGM
+DIFFUSION;France 5;C à vous;La concentration des médias en France;INTERVIEW;Anne-Élisabeth Lemoine;20.0;PERSONNE:Vincent Bolloré|PERSONNE:Patrick Drahi|MEDIA:BFM TV
+DIFFUSION;RTL;Les Grosses Têtes;Interview spéciale économie;INTERVIEW;Laurent Ruquier;25.0;PERSONNE:Xavier Niel|MEDIA:Le Monde
+DIFFUSION;LCI;L'Interview politique;Face à face sur les enjeux médiatiques;INTERVIEW;David Pujadas;20.0;PERSONNE:Arnaud Lagardère|ORGANISATION:Lagardère SA
+PUBLICATION;Marianne;Entretien avec Vincent Bolloré;Stratégie et vision du groupe média;INTERVIEW;Natacha Polony;PERSONNE:Vincent Bolloré|ORGANISATION:Vivendi
+PUBLICATION;Challenges;Rodolphe Saadé se confie;L'expansion du groupe CMA CGM dans les médias;INTERVIEW;Vincent Beaufils;PERSONNE:Rodolphe Saadé|ORGANISATION:CMA CGM
