@@ -17,10 +17,10 @@ public class main {
         Map<String, Media> medias = Parser.readMedias();
 
         // puis on charge les relations entre elles (et on met à jour leurs possessions)
-        List<PartPropriete> relationsOrgMedia = Parser.updateAndReadRelations("sources/organisation-media.tsv", organisations, medias);
-        List<PartPropriete> relationsOrgOrg = Parser.updateAndReadRelations("sources/organisation-organisation.tsv", organisations, organisations);
-        List<PartPropriete> relationsPersMedia = Parser.updateAndReadRelations("sources/personne-media.tsv", personnes, medias);
-        List<PartPropriete> relationsPersOrg = Parser.updateAndReadRelations("sources/personne-organisation.tsv", personnes, organisations);
+        List<PartPropriete> relationsOrgMedia = Parser.updateAndReadRelations("organisation-media.tsv", organisations, medias);
+        List<PartPropriete> relationsOrgOrg = Parser.updateAndReadRelations("organisation-organisation.tsv", organisations, organisations);
+        List<PartPropriete> relationsPersMedia = Parser.updateAndReadRelations("personne-media.tsv", personnes, medias);
+        List<PartPropriete> relationsPersOrg = Parser.updateAndReadRelations("personne-organisation.tsv", personnes, organisations);
 
         // On initialise le gestionnaire d'événements (lié à la vigie)
         GestionnaireEvenements gestionnaire = GestionnaireEvenements.getInstance();
@@ -36,7 +36,7 @@ public class main {
         gestionnaire.abonner(moduledaniel);
         gestionnaire.abonner(moduleLeMondeMedia);
 
-        Simulateur.simulerEvenementsFichier(gestionnaire, medias, personnes, organisations, "sources/evenements.txt");
+        Simulateur.simulerEvenementsFichier(gestionnaire, medias, personnes, organisations, "evenements.txt");
 
         // Menu utilisateur
         Scanner scanner = new Scanner(System.in);

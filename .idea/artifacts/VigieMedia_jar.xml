@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="VigieMedia:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/VigieMedia_jar</output-path>
+    <root id="archive" name="VigieMedia.jar">
+      <element id="module-output" name="VigieMedia" />
+    </root>
+  </artifact>
+</component>

@@ -4,10 +4,7 @@ import Entite.*;
 import Evenement.*;
 import Gestionnaire.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -486,7 +483,14 @@ public class Simulateur {
                                                 String fichier) {
         System.out.println("\n===== SIMULATION DES ÉVÉNEMENTS DEPUIS FICHIER =====");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(fichier))) {
+        // on tente d'ouvrir le fichier depuis les ressources avec un InputStream
+        try (InputStream is = Simulateur.class.getClassLoader().getResourceAsStream(fichier)) {
+            if (is == null) {
+                System.out.println("Erreur: Le fichier " + fichier + " n'a pas été trouvé.");
+                return;
+            }
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String ligne;
             int compteur = 0;
 
