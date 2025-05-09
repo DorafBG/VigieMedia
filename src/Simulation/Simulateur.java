@@ -8,8 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,7 +31,9 @@ public class Simulateur {
 
         // Choix du média
         System.out.println("Médias disponibles :");
-        for (Media media : medias.values()) {
+        List<Media> mediasTries = new ArrayList<>(medias.values());
+        mediasTries.sort(Comparator.comparing(Media::getNom)); //tri par ordre alphabetique
+        for (Media media : mediasTries) {
             System.out.println("- " + media.getNom());
         }
         System.out.print("Nom du média qui publie : ");
@@ -87,13 +88,22 @@ public class Simulateur {
             System.out.println("0. Terminer");
             System.out.print("Votre choix : ");
 
-            int choixEntite = scanner.nextInt();
+            int choixEntite = 0;
+            try {
+                choixEntite = scanner.nextInt();
+            } catch (Exception e){
+                System.out.println("Erreur lors de la saisie du choix de l'entité ! ");
+                scanner.nextLine();
+                continue;
+            }
             scanner.nextLine();
 
             switch (choixEntite) {
                 case 1:
                     System.out.println("Personnes disponibles :");
-                    for (Personne p : personnes.values()) {
+                    List<Personne> personnesTries = new ArrayList<>(personnes.values());
+                    personnesTries.sort(Comparator.comparing(Personne::getNom)); //tri par ordre alphabetique
+                    for (Personne p : personnesTries) {
                         System.out.println("- " + p.getNom());
                     }
                     System.out.print("Nom de la personne : ");
@@ -108,7 +118,9 @@ public class Simulateur {
                     break;
                 case 2:
                     System.out.println("Organisations disponibles :");
-                    for (Organisation org : organisations.values()) {
+                    List<Organisation> organisationsTries = new ArrayList<>(organisations.values());
+                    organisationsTries.sort(Comparator.comparing(Organisation::getNom)); //tri par ordre alphabetique
+                    for (Organisation org : organisationsTries) {
                         System.out.println("- " + org.getNom());
                     }
                     System.out.print("Nom de l'organisation : ");
@@ -123,7 +135,7 @@ public class Simulateur {
                     break;
                 case 3:
                     System.out.println("Médias disponibles :");
-                    for (Media m : medias.values()) {
+                    for (Media m : mediasTries) {
                         System.out.println("- " + m.getNom());
                     }
                     System.out.print("Nom du média : ");
@@ -165,7 +177,9 @@ public class Simulateur {
 
         // Choix du média
         System.out.println("Médias disponibles :");
-        for (Media m : medias.values()) {
+        List<Media> mediasTries = new ArrayList<>(medias.values());
+        mediasTries.sort(Comparator.comparing(Media::getNom)); //tri par ordre alphabetique
+        for (Media m : mediasTries) {
             System.out.println("- " + m.getNom());
         }
         System.out.print("Nom du média qui diffuse : ");
@@ -223,13 +237,22 @@ public class Simulateur {
             System.out.println("0. Terminer");
             System.out.print("Votre choix : ");
 
-            int choixEntite = scanner.nextInt();
+            int choixEntite = 0;
+            try {
+                choixEntite = scanner.nextInt();
+            } catch (Exception e){
+                System.out.println("Erreur lors de la saisie du choix de l'entité ! ");
+                scanner.nextLine();
+                continue;
+            }
             scanner.nextLine();
 
             switch (choixEntite) {
                 case 1:
                     System.out.println("Personnes disponibles :");
-                    for (Personne p : personnes.values()) {
+                    List<Personne> personnesTries = new ArrayList<>(personnes.values());
+                    personnesTries.sort(Comparator.comparing(Personne::getNom)); //tri par ordre alphabetique
+                    for (Personne p : personnesTries) {
                         System.out.println("- " + p.getNom());
                     }
                     System.out.print("Nom de la personne : ");
@@ -244,7 +267,9 @@ public class Simulateur {
                     break;
                 case 2:
                     System.out.println("Organisations disponibles :");
-                    for (Organisation org : organisations.values()) {
+                    List<Organisation> organisationsTries = new ArrayList<>(organisations.values());
+                    organisationsTries.sort(Comparator.comparing(Organisation::getNom)); //tri par ordre alphabetique
+                    for (Organisation org : organisationsTries) {
                         System.out.println("- " + org.getNom());
                     }
                     System.out.print("Nom de l'organisation : ");
@@ -259,7 +284,7 @@ public class Simulateur {
                     break;
                 case 3:
                     System.out.println("Médias disponibles :");
-                    for (Media m : medias.values()) {
+                    for (Media m : mediasTries) {
                         System.out.println("- " + m.getNom());
                     }
                     System.out.print("Nom du média : ");
@@ -304,13 +329,27 @@ public class Simulateur {
         System.out.println("1. Une personne");
         System.out.println("2. Une organisation");
         System.out.print("Votre choix : ");
-        int choixAcheteur = scanner.nextInt();
+        int choixAcheteur = 0;
+        try {
+            choixAcheteur = scanner.nextInt();
+        } catch (Exception e){
+            System.out.println("Erreur lors de la saisie du choix de l'acheteur ! ");
+            return;
+        }
         scanner.nextLine();
+
+        //differents tris pour media/personnes/organisation
+        List<Personne> personnesTries = new ArrayList<>(personnes.values());
+        personnesTries.sort(Comparator.comparing(Personne::getNom)); //tri par ordre alphabetique
+        List<Organisation> organisationsTries = new ArrayList<>(organisations.values());
+        organisationsTries.sort(Comparator.comparing(Organisation::getNom)); //tri par ordre alphabetique
+        List<Media> mediasTries = new ArrayList<>(medias.values());
+        mediasTries.sort(Comparator.comparing(Media::getNom)); //tri par ordre alphabetique
 
         Entite acheteur = null;
         if (choixAcheteur == 1) {
             System.out.println("Personnes disponibles :");
-            for (Personne p : personnes.values()) {
+            for (Personne p : personnesTries) {
                 System.out.println("- " + p.getNom());
             }
             System.out.print("Nom de la personne acheteur : ");
@@ -318,7 +357,7 @@ public class Simulateur {
             acheteur = personnes.get(nomPersonne);
         } else if (choixAcheteur == 2) {
             System.out.println("Organisations disponibles :");
-            for (Organisation org : organisations.values()) {
+            for (Organisation org : organisationsTries) {
                 System.out.println("- " + org.getNom());
             }
             System.out.print("Nom de l'organisation acheteur : ");
@@ -336,13 +375,19 @@ public class Simulateur {
         System.out.println("1. Une personne");
         System.out.println("2. Une organisation");
         System.out.print("Votre choix : ");
-        int choixVendeur = scanner.nextInt();
+        int choixVendeur = 0;
+        try {
+            choixVendeur = scanner.nextInt();
+        } catch (Exception e){
+            System.out.println("Erreur lors de la saisie du choix du vendeur ! ");
+            return;
+        }
         scanner.nextLine();
 
         Entite vendeur = null;
         if (choixVendeur == 1) {
             System.out.println("Personnes disponibles :");
-            for (Personne p : personnes.values()) {
+            for (Personne p : personnesTries) {
                 System.out.println("- " + p.getNom());
             }
             System.out.print("Nom de la personne vendeur : ");
@@ -350,7 +395,7 @@ public class Simulateur {
             vendeur = personnes.get(nomPersonne);
         } else if (choixVendeur == 2) {
             System.out.println("Organisations disponibles :");
-            for (Organisation org : organisations.values()) {
+            for (Organisation org : organisationsTries) {
                 System.out.println("- " + org.getNom());
             }
             System.out.print("Nom de l'organisation vendeur : ");
@@ -368,13 +413,19 @@ public class Simulateur {
         System.out.println("1. Une organisation");
         System.out.println("2. Un média");
         System.out.print("Votre choix : ");
-        int choixCible = scanner.nextInt();
+        int choixCible = 0;
+        try {
+            choixCible = scanner.nextInt();
+        } catch (Exception e){
+            System.out.println("Erreur lors de la saisie du choix de la cible ! ");
+            return;
+        }
         scanner.nextLine();
 
         Entite cible = null;
         if (choixCible == 1) {
             System.out.println("Organisations disponibles :");
-            for (Organisation org : organisations.values()) {
+            for (Organisation org : organisationsTries) {
                 System.out.println("- " + org.getNom());
             }
             System.out.print("Nom de l'organisation cible : ");
@@ -382,7 +433,7 @@ public class Simulateur {
             cible = organisations.get(nomOrg);
         } else if (choixCible == 2) {
             System.out.println("Médias disponibles :");
-            for (Media m : medias.values()) {
+            for (Media m : mediasTries) {
                 System.out.println("- " + m.getNom());
             }
             System.out.print("Nom du média cible : ");
@@ -456,7 +507,6 @@ public class Simulateur {
                     System.out.println(evenement);
                     System.out.println("---------------------------------");
 
-                    // Attendre 1 seconde avant le prochain événement
                     try {
                         TimeUnit.SECONDS.sleep(1);
                     } catch (InterruptedException e) {

@@ -52,7 +52,15 @@ public class main {
             System.out.println("0. Quitter");
             System.out.print("Votre choix : ");
 
-            int choix = scanner.nextInt();
+            int choix = 0;
+            try{
+                choix = scanner.nextInt();
+            } catch (Exception e){
+                System.out.println("Erreur de saisie, veuillez entrer un nombre entier.");
+                scanner.nextLine();
+                continue;
+            }
+
             scanner.nextLine();
 
             switch (choix) {
